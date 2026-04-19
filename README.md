@@ -1,47 +1,54 @@
-# Edge Traffic Counting Reproduction Bundle
+# Edge Traffic Counting
 
-Minimal standalone bundle for reproducing the edge-side vehicle counting
-experiments and reference outputs from this project.
+This repository contains the code, configuration files, masks, model weights,
+and reference outputs needed to reproduce the vehicle-counting experiments in
+this project on Jetson AGX Orin. The benchmark covers three fixed traffic
+videos recorded under day, dusk, and night conditions, and includes both the
+standard Python pipeline with ByteTrack and the DeepStream-based NvDCF
+comparison path.
 
-This folder intentionally contains only:
+The repository includes the processed experiment outputs used as reference
+artifacts, so a fresh run can be checked against known results without having
+to reconstruct tables by hand.
 
-- the exact experiment scripts needed to rerun the benchmark
-- the small configuration, mask, and model files required by those scripts
-- reference result artifacts for result checking and summary regeneration
+## Data Access
 
-It intentionally does **not** vendor the three raw CCTV videos, because they are large:
+The three raw CCTV videos are not distributed through GitHub. If you need them
+for replication, contact `daniel.voinea@unitbv.ro`.
+
+The benchmark expects the following filenames in the repository root:
 
 - `7_45.mp4`
 - `17_30.mp4`
 - `18_45.mp4`
 
-Place those three files in the repository root before re-running experiments.
+## Repository Contents
 
-## Layout
+- `benchmark/run_benchmark.py`: main benchmark runner
+- `benchmark/generate_nvdcf_tracks.py`: DeepStream helper for NvDCF track export
+- `benchmark/benchmark_segments.template.json`: segment template for the three conditions
+- `benchmark/results_full_power/`: bundled reference outputs for the Python pipeline
+- `benchmark/reference_results_maxn/`: bundled MAXN reference outputs
+- `benchmark/reference_results_nvdcf_30w/`: bundled NvDCF comparison outputs
+- `scripts/extract_reference_metrics.py`: compact metric summary from bundled outputs
+- `scripts/extract_reference_tables.py`: markdown table extraction from bundled outputs
+- `scripts/run_core_experiments.sh`: one-command run for the main benchmark block
+- `scripts/run_nvdcf_comparison.sh`: one-command run for the NvDCF comparison
+- `roi_masks/`: ROI masks used for counting
+- `gt.csv`: ground-truth vehicle totals
+- `models/zero_dce.torchscript.pt`: Zero-DCE weights used by `P3`
+- `yolov8n.pt`, `yolo11n.pt`: detector weights used in the benchmark
 
-- `gt.csv`: ground-truth counts
-- `roi_masks/`: roadway ROI masks
-- `yolov8n.pt`, `yolo11n.pt`: detector weights used by the benchmark
-- `models/zero_dce.torchscript.pt`: learned low-light enhancer used by `P3`
-- `benchmark/run_benchmark.py`: main experiment runner
-- `benchmark/generate_nvdcf_tracks.py`: DeepStream/NvDCF export helper
-- `deepstream_backend.py`: DeepStream backend required by NvDCF export
-- `monitor_power.py`: power logger used on Jetson
-- `benchmark/results_full_power/`: reference Python/ByteTrack results
-- `benchmark/reference_results_maxn/`: reference MAXN summary outputs
-- `benchmark/reference_results_nvdcf_30w/`: reference NvDCF comparison outputs
-- `scripts/`: small helper scripts for rerunning and summarizing results
+## Hardware and Software
 
-## Hardware / Software Assumptions
-
-The reference runs in this bundle target:
+The reference runs were produced on:
 
 - NVIDIA Jetson AGX Orin
-- `MAXN` power mode for the main throughput/latency runs
+- `MAXN` mode for the main throughput and latency measurements
 - JetPack 6.x
-- TensorRT / DeepStream 7.1 for the NvDCF comparison path
+- DeepStream 7.1 for the NvDCF comparison path
 
-Python dependencies used by the included scripts:
+Python packages used by the included scripts:
 
 - `torch`
 - `ultralytics`
@@ -49,21 +56,14 @@ Python dependencies used by the included scripts:
 - `opencv-python`
 - `numpy`
 - `Pillow`
-- `jetson-stats` (`jtop`) for power logging
+- `jetson-stats`
 
-DeepStream is required only for `generate_nvdcf_tracks.py`.
+DeepStream is only required for `benchmark/generate_nvdcf_tracks.py` and the
+`make nvdcf` path.
 
-## Quick Start
+## Setup
 
-1. Put the three raw videos in the repo root:
-
-```bash
-cp /path/to/7_45.mp4 .
-cp /path/to/17_30.mp4 .
-cp /path/to/18_45.mp4 .
-```
-
-2. Create a Python environment and install the Python dependencies:
+Create a virtual environment and install the Python dependencies:
 
 ```bash
 python -m venv .venv
@@ -71,44 +71,59 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. Reproduce the main Python/ByteTrack experiment block:
+Place the three videos in the repository root:
+
+```bash
+cp /path/to/7_45.mp4 .
+cp /path/to/17_30.mp4 .
+cp /path/to/18_45.mp4 .
+```
+
+## Running the Benchmark
+
+Run the main Python pipeline:
 
 ```bash
 bash scripts/run_core_experiments.sh
 ```
 
-4. If you also want the DeepStream NvDCF comparison:
+Run the DeepStream NvDCF comparison:
 
 ```bash
 bash scripts/run_nvdcf_comparison.sh
 ```
 
-5. Summarize the copied or regenerated reference metrics:
+The same entry points are available through `make`:
+
+```bash
+make core
+make nvdcf
+```
+
+## Inspecting the Bundled Outputs
+
+Print a compact summary of the reference outputs:
 
 ```bash
 python scripts/extract_reference_metrics.py
 ```
 
-6. Regenerate compact summary tables from the bundled result artifacts:
+Generate markdown tables from the bundled outputs:
 
 ```bash
 python scripts/extract_reference_tables.py
 ```
 
-You can also use the provided `Makefile`:
+Or use:
 
 ```bash
 make metrics
 make tables
-make core
-make nvdcf
 ```
 
-## Exact Commands
+## Reference Commands
 
-### Main `R1`–`R5` experiment block
-
-This command reproduces the main three-video Python experiment family:
+Main benchmark run:
 
 ```bash
 python benchmark/run_benchmark.py \
@@ -132,23 +147,11 @@ python benchmark/run_benchmark.py \
   --with-power
 ```
 
-Notes:
-
-- This script expects the Jetson to already be in the desired power mode.
-- If you want to switch power modes automatically, extend the command with the
-  `--apply-nvpmodel` flags supported by `benchmark/run_benchmark.py`.
-
-### NvDCF comparison path
-
-First export NvDCF tracks through DeepStream:
+NvDCF comparison:
 
 ```bash
 python benchmark/generate_nvdcf_tracks.py --max-frames 0
-```
 
-Then evaluate those exported tracks in the same counting protocol:
-
-```bash
 python benchmark/run_benchmark.py \
   --video-mode three \
   --video-day ./7_45.mp4 \
@@ -166,57 +169,10 @@ python benchmark/run_benchmark.py \
   --external-tracks-template './benchmark/nvdcf_tracks/{run_id}_{POWER_MODE}_{condition}.txt'
 ```
 
-## Reference Results Included
+## Notes
 
-This bundle already includes the reference JSON/CSV outputs copied from the source
-workspace. Those files are useful for:
-
-- verifying that a fresh rerun matches the reference outputs
-- checking the exact protocol metadata used for the reported runs
-- regenerating compact result summaries without rerunning the full experiment
-
-Use:
-
-```bash
-python scripts/extract_reference_metrics.py
-```
-
-to print a compact summary from the included artifacts.
-
-Use:
-
-```bash
-python scripts/extract_reference_tables.py
-```
-
-to regenerate compact markdown tables directly from the copied JSON outputs.
-
-Equivalent `Makefile` targets are:
-
-- `make metrics`
-- `make tables`
-- `make core`
-- `make nvdcf`
-
-## Reproducibility Notes
-
-- The benchmark expects the three source videos to keep the same filenames:
-  `7_45.mp4`, `17_30.mp4`, and `18_45.mp4`.
-- Detector weights, ROI masks, and ground-truth counts are bundled here so the
-  experiment inputs are fixed.
-- `P3` runs depend on `models/zero_dce.torchscript.pt`.
-- The DeepStream path is only needed when reproducing the `NvDCF` comparison.
-- Reference outputs are included so other users can compare a fresh rerun
-  against known-good JSON summaries before extending the benchmark.
-
-## Turning This Into a Git Repo
-
-From inside this folder:
-
-```bash
-git init
-git add .
-git commit -m "Add edge traffic counting reproduction bundle"
-```
-
-The `.gitignore` intentionally excludes the large raw videos and generated outputs.
+- The three videos must keep the filenames listed above.
+- ROI masks, ground truth, model weights, and reference outputs are included so
+  the benchmark can be rerun with the same inputs used here.
+- `P3` depends on `models/zero_dce.torchscript.pt`.
+- The `.gitignore` excludes the raw videos and generated local outputs.
