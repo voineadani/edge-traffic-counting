@@ -1,0 +1,21 @@
+[property]
+gpu-id=0
+net-scale-factor=0.00392156862745098
+onnx-file=yolov8n.onnx
+model-engine-file=yolov8n.onnx_b1_gpu0_fp16.engine
+batch-size=1
+process-mode=1
+model-color-format=0
+network-mode=2
+num-detected-classes=80
+interval=0
+gie-unique-id=1
+# output-tensor-meta is incompatible with parse-bbox-func-name; use custom parser instead
+output-tensor-meta=0
+cluster-mode=4
+network-type=0
+custom-lib-path=./libnvdsinfer_custom_impl_yolo11.so
+parse-bbox-func-name=NvDsInferParseCustomYolo11
+maintain-aspect-ratio=1
+symmetric-padding=1
+infer-dims=3;640;640

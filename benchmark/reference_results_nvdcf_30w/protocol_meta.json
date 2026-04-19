@@ -1,0 +1,73 @@
+{
+  "video_mode": "three",
+  "video": {
+    "day": "/home/orin/AVSIM/7_45.mp4",
+    "dusk": "/home/orin/AVSIM/17_30.mp4",
+    "night": "/home/orin/AVSIM/18_45.mp4"
+  },
+  "segments": [],
+  "power_modes": [
+    "MAXN"
+  ],
+  "runs": [
+    {
+      "run_id": "R1",
+      "detector": "yolov8n",
+      "preproc": "P0"
+    },
+    {
+      "run_id": "R2",
+      "detector": "yolo11n",
+      "preproc": "P0"
+    },
+    {
+      "run_id": "R3",
+      "detector": "yolov8n",
+      "preproc": "P1"
+    },
+    {
+      "run_id": "R4",
+      "detector": "yolov8n",
+      "preproc": "P3"
+    },
+    {
+      "run_id": "R5",
+      "detector": "yolo11n",
+      "preproc": "P3"
+    }
+  ],
+  "nmsfree_detector": "yolo11n",
+  "preprocessing": {
+    "p3_gating": "segment_and_luminance",
+    "tau_night": 0.35,
+    "p3_lowlight_conditions": [
+      "dusk",
+      "night"
+    ]
+  },
+  "detection_eval": {
+    "gt_det": null,
+    "vehicle_only_detection_eval": true
+  },
+  "count_eval": {
+    "gt_count": "gt.csv",
+    "method": "unique_track_ids_per_run_condition"
+  },
+  "power_logging": {
+    "enabled": false,
+    "interval_sec": 0.5
+  },
+  "tracking": {
+    "enabled": true,
+    "tracker": "nvdcf",
+    "gt_mot": null,
+    "external_tracks_template": "benchmark/nvdcf_tracks/{run_id}_30W_{condition}.txt",
+    "vehicle_only_tracking": true,
+    "tracking_iou_threshold": 0.5
+  },
+  "timestamp_buckets": {
+    "stable": "dt <= 1.25 * median_dt",
+    "stutter": "1.25 * median_dt < dt <= 2.5 * median_dt",
+    "drop": "dt > 2.5 * median_dt"
+  }
+}

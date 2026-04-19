@@ -1,0 +1,17 @@
+[
+  {
+    "condition": "day",
+    "start_sec": 0,
+    "end_sec": 900
+  },
+  {
+    "condition": "dusk",
+    "start_sec": 900,
+    "end_sec": 1800
+  },
+  {
+    "condition": "night",
+    "start_sec": 1800,
+    "end_sec": 2700
+  }
+]

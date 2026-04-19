@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Large raw inputs are expected to be staged locally, not versioned
+7_45.mp4
+17_30.mp4
+18_45.mp4
+
+# Local experiment outputs
+outputs/
+benchmark/nvdcf_tracks/*.txt

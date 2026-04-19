@@ -1,0 +1,60 @@
+{
+  "runs": [
+    {
+      "run_id": "R1",
+      "detector": "yolov8n",
+      "preproc": "P0",
+      "power_mode": "MAXN",
+      "frames_total": 56490,
+      "latency_ms": 22.42810570427666,
+      "fps": 41.10181534445058,
+      "avg_power_mw": 0.0,
+      "fps_per_watt": 0.0,
+      "day_map50": 0.0,
+      "dusk_map50": 0.0,
+      "night_map50": 0.0,
+      "map50_mean": 0.0,
+      "gt_total_count": 992.0,
+      "pred_total_count": 1363.0,
+      "count_abs_error": 371.0,
+      "count_relative_error_pct": 37.399193548387096,
+      "conditions_present": [
+        "day",
+        "dusk",
+        "night"
+      ],
+      "conditions": {
+        "day": {
+          "video": "/home/orin/AVSIM/7_45.mp4",
+          "frames": 21383,
+          "latency_ms": 22.919788544792258,
+          "map50": 0.0,
+          "gt_total_count": 452.0,
+          "pred_total_count": 725.0,
+          "count_abs_error": 273.0,
+          "count_relative_error_pct": 60.39823008849557
+        },
+        "dusk": {
+          "video": "/home/orin/AVSIM/17_30.mp4",
+          "frames": 17615,
+          "latency_ms": 22.11416159507195,
+          "map50": 0.0,
+          "gt_total_count": 302.0,
+          "pred_total_count": 479.0,
+          "count_abs_error": 177.0,
+          "count_relative_error_pct": 58.609271523178805
+        },
+        "night": {
+          "video": "/home/orin/AVSIM/18_45.mp4",
+          "frames": 17492,
+          "latency_ms": 22.143202394471952,
+          "map50": 0.0,
+          "gt_total_count": 238.0,
+          "pred_total_count": 159.0,
+          "count_abs_error": 79.0,
+          "count_relative_error_pct": 33.193277310924366
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "run_id": "R2",
+  "video": "/home/orin/AVSIM/7_45.mp4",
+  "video_condition": "day",
+  "detector": "yolo11n",
+  "detector_path": "/home/orin/AVSIM/yolo11n.pt",
+  "preproc": "P0",
+  "power_mode": "50W",
+  "frames_processed": 21383,
+  "wall_time_sec": 878.7694165706635,
+  "fps": 24.332890513470154,
+  "fps_per_watt": 2.2833850803008424,
+  "avg_power_mw": 10656.498863636363,
+  "median_dt_ms": 40.0,
+  "mean_preproc_latency_ms": 2.1683641486432608,
+  "mean_infer_latency_ms": 34.39872392974555,
+  "mean_tracking_latency_ms": 1.5257751897638754,
+  "mean_latency_ms": 38.09286326815269,
+  "p95_latency_ms": 38.98167610168457,
+  "mean_detections_per_frame": 17.106205864471775,
+  "mean_confidence": 0.5102587335488696,
+  "map50": 0.0,
+  "map50_per_condition": {
+    "day": 0.0,
+    "dusk": 0.0,
+    "night": 0.0
+  },
+  "count_eval": {
+    "gt_total_count": 452.0,
+    "pred_total_count": 563.0,
+    "abs_error": 111.0,
+    "relative_error_pct": 24.557522123893804,
+    "requires_tracking_for_pred": true,
+    "tracking_enabled": true
+  },
+  "timing_bucket_counts": {
+    "stable": 21263,
+    "stutter": 22,
+    "drop": 98
+  },
+  "preprocessing": {
+    "mode": "P0",
+    "p3_gating": "",
+    "tau_night": 0.0,
+    "p3_lowlight_conditions": [],
+    "p3_switch_count": 0,
+    "p3_enhanced_frames": 0,
+    "p3_passthrough_frames": 0,
+    "p3_switch_event_pre_mean_ms": 0.0,
+    "p3_steady_pre_mean_ms": 0.0,
+    "p3_switch_overhead_ms": 0.0,
+    "mean_luminance": 0.0
+  },
+  "per_condition": {
+    "day": {
+      "frames": 21383.0,
+      "mean_preproc_latency_ms": 2.1683641486432608,
+      "mean_infer_latency_ms": 34.39872392974555,
+      "mean_tracking_latency_ms": 1.5257751897638754,
+      "mean_latency_ms": 38.09286326815269,
+      "mean_detections": 17.106205864471775,
+      "mean_confidence": 0.5102587335488696,
+      "map50": 0.0
+    },
+    "dusk": {
+      "frames": 0.0,
+      "mean_preproc_latency_ms": 0.0,
+      "mean_infer_latency_ms": 0.0,
+      "mean_tracking_latency_ms": 0.0,
+      "mean_latency_ms": 0.0,
+      "mean_detections": 0.0,
+      "mean_confidence": 0.0,
+      "map50": 0.0
+    },
+    "night": {
+      "frames": 0.0,
+      "mean_preproc_latency_ms": 0.0,
+      "mean_infer_latency_ms": 0.0,
+      "mean_tracking_latency_ms": 0.0,
+      "mean_latency_ms": 0.0,
+      "mean_detections": 0.0,
+      "mean_confidence": 0.0,
+      "map50": 0.0
+    }
+  },
+  "per_timing_bucket": {
+    "stable": {
+      "frames": 21263.0,
+      "mean_preproc_latency_ms": 2.1683866125628075,
+      "mean_infer_latency_ms": 34.39858802616364,
+      "mean_tracking_latency_ms": 1.5257992502472753,
+      "mean_latency_ms": 38.09277388897372,
+      "mean_detections": 17.107040398814842,
+      "mean_confidence": 0.5102812856196102
+    },
+    "stutter": {
+      "frames": 22.0,
+      "mean_preproc_latency_ms": 2.1565827456387607,
+      "mean_infer_latency_ms": 34.43438356572931,
+      "mean_tracking_latency_ms": 1.3163523240522905,
+      "mean_latency_ms": 37.90731863542037,
+      "mean_detections": 17.454545454545453,
+      "mean_confidence": 0.494517673145641
+    },
+    "drop": {
+      "frames": 98.0,
+      "mean_preproc_latency_ms": 2.1661349705287387,
+      "mean_infer_latency_ms": 34.42020562230324,
+      "mean_tracking_latency_ms": 1.567568097795759,
+      "mean_latency_ms": 38.15390869062774,
+      "mean_detections": 16.846938775510203,
+      "mean_confidence": 0.5088993320051505
+    }
+  },
+  "power": {
+    "samples": 880.0,
+    "avg_power_mw": 10656.498863636363,
+    "avg_gpu_load_pct": 38.250113636363636,
+    "avg_cpu_load_pct": 12.1378875,
+    "avg_ram_used_mb": 0.3189875
+  },
+  "tracking": {
+    "enabled": true,
+    "tracker": "bytetrack",
+    "iou_match_threshold": 0.5,
+    "gt_file": null,
+    "uses_ground_truth": false,
+    "global": {
+      "id_switches_proxy": 108
+    },
+    "per_timing_bucket": {
+      "stable": {
+        "frames": 21263,
+        "tracked_boxes": 31751,
+        "id_switches": 108
+      },
+      "stutter": {
+        "frames": 22,
+        "tracked_boxes": 23,
+        "id_switches": 0
+      },
+      "drop": {
+        "frames": 98,
+        "tracked_boxes": 147,
+        "id_switches": 0
+      }
+    },
+    "notes": [
+      "No GT provided: reported id_switches_proxy only. Provide --gt-mot for IDSW."
+    ]
+  }
+}

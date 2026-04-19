@@ -1,0 +1,147 @@
+{
+  "run_id": "R1",
+  "video": "/home/orin/AVSIM/18_45.mp4",
+  "video_condition": "night",
+  "detector": "yolov8n",
+  "detector_path": "/home/orin/AVSIM/yolov8n.pt",
+  "preproc": "P0",
+  "power_mode": "MAXN",
+  "frames_processed": 17492,
+  "wall_time_sec": 419.5215048789978,
+  "fps": 41.69512121922141,
+  "fps_per_watt": 0.0,
+  "avg_power_mw": 0.0,
+  "median_dt_ms": 40.0,
+  "mean_preproc_latency_ms": 1.5195935398933136,
+  "mean_infer_latency_ms": 20.623608854578638,
+  "mean_tracking_latency_ms": 0.0,
+  "mean_latency_ms": 22.143202394471952,
+  "p95_latency_ms": 22.694087028503418,
+  "mean_detections_per_frame": 4.972501715069746,
+  "mean_confidence": 0.35435933794033164,
+  "map50": 0.0,
+  "map50_per_condition": {
+    "day": 0.0,
+    "dusk": 0.0,
+    "night": 0.0
+  },
+  "count_eval": {
+    "gt_total_count": 238.0,
+    "pred_total_count": 159.0,
+    "abs_error": 79.0,
+    "relative_error_pct": 33.193277310924366,
+    "requires_tracking_for_pred": true,
+    "tracking_enabled": true
+  },
+  "timing_bucket_counts": {
+    "stable": 17268,
+    "stutter": 48,
+    "drop": 176
+  },
+  "preprocessing": {
+    "mode": "P0",
+    "p3_gating": "",
+    "tau_night": 0.0,
+    "p3_lowlight_conditions": [],
+    "p3_switch_count": 0,
+    "p3_enhanced_frames": 0,
+    "p3_passthrough_frames": 0,
+    "p3_switch_event_pre_mean_ms": 0.0,
+    "p3_steady_pre_mean_ms": 0.0,
+    "p3_switch_overhead_ms": 0.0,
+    "mean_luminance": 0.0
+  },
+  "per_condition": {
+    "day": {
+      "frames": 0.0,
+      "mean_preproc_latency_ms": 0.0,
+      "mean_infer_latency_ms": 0.0,
+      "mean_tracking_latency_ms": 0.0,
+      "mean_latency_ms": 0.0,
+      "mean_detections": 0.0,
+      "mean_confidence": 0.0,
+      "map50": 0.0
+    },
+    "dusk": {
+      "frames": 0.0,
+      "mean_preproc_latency_ms": 0.0,
+      "mean_infer_latency_ms": 0.0,
+      "mean_tracking_latency_ms": 0.0,
+      "mean_latency_ms": 0.0,
+      "mean_detections": 0.0,
+      "mean_confidence": 0.0,
+      "map50": 0.0
+    },
+    "night": {
+      "frames": 17492.0,
+      "mean_preproc_latency_ms": 1.5195935398933136,
+      "mean_infer_latency_ms": 20.623608854578638,
+      "mean_tracking_latency_ms": 0.0,
+      "mean_latency_ms": 22.143202394471952,
+      "mean_detections": 4.972501715069746,
+      "mean_confidence": 0.35435933794033164,
+      "map50": 0.0
+    }
+  },
+  "per_timing_bucket": {
+    "stable": {
+      "frames": 17268.0,
+      "mean_preproc_latency_ms": 1.519600771245013,
+      "mean_infer_latency_ms": 20.623621259653543,
+      "mean_tracking_latency_ms": 0.0,
+      "mean_latency_ms": 22.143222030898556,
+      "mean_detections": 4.971623812832986,
+      "mean_confidence": 0.354352081956923
+    },
+    "stutter": {
+      "frames": 48.0,
+      "mean_preproc_latency_ms": 1.5177428722381592,
+      "mean_infer_latency_ms": 20.680020252863567,
+      "mean_tracking_latency_ms": 0.0,
+      "mean_latency_ms": 22.197763125101726,
+      "mean_detections": 4.666666666666667,
+      "mean_confidence": 0.37830441693464917
+    },
+    "drop": {
+      "frames": 176.0,
+      "mean_preproc_latency_ms": 1.5193887732245706,
+      "mean_infer_latency_ms": 20.60700682076541,
+      "mean_tracking_latency_ms": 0.0,
+      "mean_latency_ms": 22.12639559398998,
+      "mean_detections": 5.142045454545454,
+      "mean_confidence": 0.34854077276858414
+    }
+  },
+  "power": {},
+  "tracking": {
+    "enabled": true,
+    "tracker": "nvdcf",
+    "iou_match_threshold": 0.5,
+    "gt_file": null,
+    "uses_ground_truth": false,
+    "global": {
+      "id_switches_proxy": 21
+    },
+    "per_timing_bucket": {
+      "stable": {
+        "frames": 17268,
+        "tracked_boxes": 3706,
+        "id_switches": 21
+      },
+      "stutter": {
+        "frames": 48,
+        "tracked_boxes": 11,
+        "id_switches": 0
+      },
+      "drop": {
+        "frames": 176,
+        "tracked_boxes": 23,
+        "id_switches": 0
+      }
+    },
+    "notes": [
+      "No GT provided: reported id_switches_proxy only. Provide --gt-mot for IDSW.",
+      "Consumed external NvDCF tracks: benchmark/nvdcf_tracks/R1_30W_night.txt"
+    ]
+  }
+}
